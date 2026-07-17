@@ -2,7 +2,12 @@ import db from './db.js'
 
 const getAllOrganizations = async () => {
     const query = `
-        SELECT organization_id, organization_name, description, contact_email, logo
+        SELECT
+            organization_id,
+            organization_name,
+            description,
+            contact_email,
+            logo
         FROM public.organization;
     `;
 
