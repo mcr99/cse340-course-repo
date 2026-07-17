@@ -95,7 +95,6 @@ main {
 .organization_cards{
     display: flex;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px 0;
     border-radius: 10px;
     padding: 1rem;
 }
@@ -105,17 +104,20 @@ main {
 }
 
 .organization_box{
-    display: block;
-    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-/*project card*/
+/*project box*/
 
 .project_box{
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
 
     li{
-        margin: 10px 0;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
         padding: 16px;
@@ -129,6 +131,24 @@ main {
         span:nth-child(3){
             font-weight: 600;
         }
+    }
+    li:hover {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+}
+
+
+/*categories box*/
+
+.categories_box{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    li{
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: 600;
     }
     li:hover {
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);

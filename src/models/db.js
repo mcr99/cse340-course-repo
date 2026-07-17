@@ -13,7 +13,7 @@ import { Pool } from 'pg';
  */
 const pool = new Pool({
     connectionString: process.env.DB_URL,
-    ssl: false // true for develpment
+    ssl: true // true for develpment
 });
 
 /**

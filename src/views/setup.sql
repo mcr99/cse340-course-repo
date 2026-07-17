@@ -22,7 +22,7 @@ values ('BrightFuture Builders', 'A nonprofit focused on improving community inf
 -- Create projects table
 -- ========================================
 
-Create table projects (
+create table projects (
 	project_id serial primary key,
 	organization_id integer not null,
 	title varchar(255) not null,
@@ -37,7 +37,7 @@ Create table projects (
 -- Insert data to projects table
 -- ========================================
 
-INSERT INTO projects (organization_id, title, description, project_location, project_date) VALUES
+insert into projects (organization_id, title, description, project_location, project_date) VALUES
 -- Projects for Organization 1 (BrightFuture Builders - ID: 1)
 (1, 'Community Center Paint', 'Repainting the local community center walls and main hall.', 'Downtown Community Center', '2026-08-10'),
 (1, 'Park Bench Repair', 'Fixing and staining broken wooden benches in Central Park.', 'Central Park', '2026-08-15'),
@@ -59,3 +59,52 @@ INSERT INTO projects (organization_id, title, description, project_location, pro
 (3, 'Back-to-School Supply Pack', 'Filling backpacks with school supplies for children in need.', 'Unity Center', '2026-09-01'),
 (3, 'Local Park Cleanup', 'Picking up litter and clearing brush along the river trail.', 'Riverfront Park', '2026-09-15');
 
+-- ========================================
+-- Create categories table
+-- ========================================
+
+create table categories (
+	category_id serial primary key,
+	category varchar(255) not null
+);
+
+-- ========================================
+-- Create N:M table for projects and categories
+-- ========================================
+
+create table project_categories (
+	project_id int references projects(project_id),
+	category_id int references categories(category_id),
+	primary key (project_id, category_id)
+);
+
+-- ========================================
+-- Insert data to categories table
+-- ========================================
+
+insert into categories ( category ) values 
+('Community Improvement'),
+('Environment'),
+('Food Assistance'),
+('Education & Support');
+
+-- ========================================
+-- Connect projects with categories
+-- ========================================
+
+INSERT INTO project_categories (project_id, category_id) VALUES
+(1, 1),
+(2, 1),
+(3, 1),
+(4, 1),
+(5, 1),
+(6, 2),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 2),
+(11, 3),
+(12, 4),
+(13, 3),
+(14, 4),
+(15, 2);

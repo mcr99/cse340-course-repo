@@ -4,11 +4,10 @@
         <h1>
             <%= title %>
         </h1>
-        <ul>
-            <li>Enviromental</li>
-            <li>Educational</li>
-            <li>Community Service</li>
-            <li>health and Wellness</li>
+        <ul class="categories_box">
+            <% categories.forEach(category => { %>
+                <li><%- category.category %></li>
+            <% }); %>
         </ul>
     </main>
 
