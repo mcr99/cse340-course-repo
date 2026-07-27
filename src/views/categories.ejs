@@ -6,7 +6,11 @@
         </h1>
         <ul class="categories_box">
             <% categories.forEach(category => { %>
-                <li><%- category.category %></li>
+                <li>
+                    <a href="/category/<%= category.category_id %>">
+                        <%= category.category %>
+                    </a>
+                </li>
             <% }); %>
         </ul>
     </main>
