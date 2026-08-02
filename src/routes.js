@@ -8,6 +8,9 @@ import { showTestErrorPage } from './controllers/errors.js'
 import { showOrganizationDetailsPage } from './controllers/organizations.js'
 import { showProjectDetailsPage } from './controllers/projects.js'
 import { showCategoryDetailsPage } from './controllers/categories.js'
+import { showNewOrganizationForm } from './controllers/organizations.js'
+import { processNewOrganizationForm } from './controllers/organizations.js'
+import { organizationValidation } from './controllers/organizations.js'
 
 const router = express.Router()
 
@@ -18,8 +21,11 @@ router.get('/categories', showCategoriesPage)
 router.get('/organization/:id', showOrganizationDetailsPage)
 router.get('/project/:id', showProjectDetailsPage)
 router.get('/category/:id', showCategoryDetailsPage)
+router.get('/new-organization', showNewOrganizationForm)
 // Test route for 500 errors
 router.get('/test-error', showTestErrorPage)
+// Route to handle new organization form submission
+router.post('/new-organization', organizationValidation, processNewOrganizationForm)
 
 
 export default router
