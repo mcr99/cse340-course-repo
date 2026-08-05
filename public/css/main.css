@@ -158,7 +158,7 @@ main {
     gap: 10px;
 }
 
-.new_organization_box {
+.new_organization_box, .new_project_box {
     padding: 50px 0 0 0 ;
     
 }
@@ -227,7 +227,7 @@ form{
             font-weight: bold;
             text-align: start;
         }
-        input, textarea {
+        input, textarea, select {
             padding: 5px;
             height: 40px;
             border-radius: 10px;
@@ -258,6 +258,15 @@ form{
         }
 }
 
+/*Form for categoies edition*/
+
+.form-group{
+    div{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
 
 footer {
     background-color: #2d3748;
