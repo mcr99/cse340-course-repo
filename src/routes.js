@@ -2,7 +2,7 @@ import express from 'express'
 
 import { showHomePage } from './controllers/index.js'
 import { showOrganizationsPage } from './controllers/organizations.js'
-import { showProjectsPage } from './controllers/projects.js'
+import { processEditProjectForm, showEditProjectForm, showProjectsPage } from './controllers/projects.js'
 import { processAssignCategoriesForm, showAssignCategoriesForm, showCategoriesPage } from './controllers/categories.js'
 import { showTestErrorPage } from './controllers/errors.js'
 import { showOrganizationDetailsPage } from './controllers/organizations.js'
@@ -30,6 +30,7 @@ router.get('/new-organization', showNewOrganizationForm)
 router.get('/edit-organization/:id', showEditOrganizationForm)
 router.get('/new-project', showNewProjectForm)
 router.get('/assign-categories/:projectId', showAssignCategoriesForm)
+router.get('/edit-project/:id', showEditProjectForm)
 // Test route for 500 errors
 router.get('/test-error', showTestErrorPage)
 // Route to handle new organization form submission
@@ -37,6 +38,7 @@ router.post('/new-organization', organizationValidation, processNewOrganizationF
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm)
 router.post('/new-project', projectValidation, processNewProjectForm)
 router.post('/assign-categories/:projectId', processAssignCategoriesForm)
+router.post('/edit-project/:id', projectValidation, processEditProjectForm)
 
 
 export default router

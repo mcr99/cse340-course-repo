@@ -1,4 +1,4 @@
-import { getAllProjects } from '../models/projects.js';
+import { getAllProjects, updateProject } from '../models/projects.js';
 import { getUpcomingProjects } from '../models/projects.js';
 import { getProjectDetails } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/projects.js';
@@ -50,6 +50,50 @@ const showNewProjectForm = async (req, res) => {
     res.render('new-project', { title, organizations });
 }
 
+const showEditProjectForm = async (req, res) => {
+    const id = req.params.id
+    const project = await getProjectDetails(id)
+    const organizations = await getAllOrganizations()
+    const title = `Edit Project: ${project.title}`
+
+    res.render('edit-project', { title, project, organizations })
+}
+
+const processEditProjectForm = async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => {
+            req.flash('error', error.msg);
+        });
+
+        return res.redirect(`/edit-project/${req.params.id}`);
+    }
+
+    const { title, description, project_location, project_date, organization_id } = req.body;
+    const projectId = req.params.id;
+
+    try {
+        await updateProject(
+            projectId,
+            title,
+            description,
+            project_location,
+            project_date,
+            organization_id
+        );
+
+        req.flash('success', 'Project updated successfully!');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error updating project:', error);
+
+        req.flash('error', 'There was an error updating the project.');
+        res.redirect(`/edit-project/${projectId}`);
+    }
+}
+
+
 const processNewProjectForm = async (req, res) => {
     // Check for validation errors
     const errors = validationResult(req);
@@ -86,5 +130,7 @@ export {
     showProjectDetailsPage,
     showNewProjectForm,
     processNewProjectForm,
-    projectValidation
+    projectValidation,
+    showEditProjectForm,
+    processEditProjectForm
 }
