@@ -9,8 +9,6 @@ import { updateOrganization } from '../models/organizations.js';
 const organizationValidation = [
     body('organization_name')
         .trim()
-        .notEmpty()
-        .withMessage('Organization name is required')
         .isLength({ min: 3, max: 150 })
         .withMessage('Organization name must be between 3 and 150 characters'),
     body('description')
