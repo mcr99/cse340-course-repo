@@ -6,7 +6,7 @@ import { createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
 
-const NUMBER_OF_UPCOMING_PROJECTS = 5;
+const NUMBER_OF_UPCOMING_PROJECTS = 100;
 
 const projectValidation = [
     body('title')
