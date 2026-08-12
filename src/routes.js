@@ -15,6 +15,7 @@ import { processEditOrganizationForm } from './controllers/organizations.js'
 import { showNewProjectForm } from './controllers/projects.js'
 import { projectValidation } from './controllers/projects.js'
 import { processNewProjectForm } from './controllers/projects.js'
+import { processLoginForm, processLogout, processUserRegistrationForm, requireLogin, showDashboard, showLoginForm, showUserRegistrationForm } from './controllers/users.js'
 
 
 const router = express.Router()
@@ -33,6 +34,10 @@ router.get('/edit-organization/:id', showEditOrganizationForm)
 router.get('/new-project', showNewProjectForm)
 router.get('/assign-categories/:projectId', showAssignCategoriesForm)
 router.get('/edit-project/:id', showEditProjectForm)
+router.get('/register', showUserRegistrationForm)
+router.get('/login', showLoginForm)
+router.get('/logout', processLogout)
+router.get('/dashboard', requireLogin, showDashboard)
 // Test route for 500 errors
 router.get('/test-error', showTestErrorPage)
 // Route to handle new organization form submission
@@ -43,6 +48,8 @@ router.post('/assign-categories/:projectId', processAssignCategoriesForm)
 router.post('/edit-project/:id', projectValidation, processEditProjectForm)
 router.post('/new-category', categoryValidation, processNewCategoryForm)
 router.post('/edit-category/:id', categoryValidation, processEditCategoryForm)
+router.post('/register', processUserRegistrationForm)
+router.post('/login', processLoginForm)
 
 
 export default router

@@ -108,3 +108,34 @@ INSERT INTO project_categories (project_id, category_id) VALUES
 (13, 3),
 (14, 4),
 (15, 2);
+
+-- ========================================
+-- Create role table
+-- ========================================
+
+create table roles (
+	role_id serial primary key,
+	role_name varchar(50) unique not null,
+	role_description text
+);
+
+-- ========================================
+-- Insert data to role table
+-- ========================================
+
+insert into roles (role_name, role_description) values
+	('user', 'User with basic access'),
+	('admin', 'Administrator with full access');
+
+-- ========================================
+-- Create user table
+-- ========================================
+
+create table users (
+	user_id serial primary key,
+	name varchar(100) not null,
+	email varchar(100) unique not null,
+	password_hash varchar(255) not null,
+	role_id integer references roles(role_id),
+	created_at timestamp default current_timestamp
+);
