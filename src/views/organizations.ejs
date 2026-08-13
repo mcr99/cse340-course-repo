@@ -22,7 +22,11 @@
                 </li>
             <% }); %>
         </ul>
-        <p class="new_organization_box"><a href="/new-organization">Add a new organization</a></p>
+        <p class="new_organization_box">
+            <% if (user && user.role_name === 'admin') { %>
+                <a href="/new-organization">Add a new organization</a>
+            <% } %>
+        </p>
     </main>
 
 <%- include('partials/footer') %>
