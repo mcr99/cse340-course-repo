@@ -1,10 +1,9 @@
 import express from 'express'
 import { showHomePage } from './controllers/index.js'
-import { showOrganizationsPage } from './controllers/organizations.js'
+import { showOrganizationsPage, showOrganizationDetailsPage } from './controllers/organizations.js'
 import { processEditProjectForm, showEditProjectForm, showProjectsPage } from './controllers/projects.js'
 import { categoryValidation, processAssignCategoriesForm, processEditCategoryForm, processNewCategoryForm, showAssignCategoriesForm, showCategoriesPage, showEditCategoryForm, showNewCategoryForm } from './controllers/categories.js'
 import { showTestErrorPage } from './controllers/errors.js'
-import { showOrganizationDetailsPage } from './controllers/organizations.js'
 import { showProjectDetailsPage } from './controllers/projects.js'
 import { showCategoryDetailsPage } from './controllers/categories.js'
 import { showNewOrganizationForm } from './controllers/organizations.js'
@@ -15,7 +14,7 @@ import { processEditOrganizationForm } from './controllers/organizations.js'
 import { showNewProjectForm } from './controllers/projects.js'
 import { projectValidation } from './controllers/projects.js'
 import { processNewProjectForm } from './controllers/projects.js'
-import { processLoginForm, processLogout, processUserRegistrationForm, requireLogin, requireRole, showDashboard, showLoginForm, showUserRegistrationForm } from './controllers/users.js'
+import { processLoginForm, processLogout, processUserRegistrationForm, requireLogin, requireRole, showDashboard, showLoginForm, showUserRegistrationForm, showUsers } from './controllers/users.js'
 
 
 const router = express.Router()
@@ -38,6 +37,7 @@ router.get('/register', showUserRegistrationForm)
 router.get('/login', showLoginForm)
 router.get('/logout', processLogout)
 router.get('/dashboard', requireLogin, showDashboard)
+router.get('/users', requireRole('admin'), showUsers)
 // Test route for 500 errors
 router.get('/test-error', showTestErrorPage)
 // Route to handle new organization form submission
