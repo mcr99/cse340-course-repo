@@ -27,6 +27,7 @@ a{
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
+    width: 100%;
 }
 
 .alert.success {
@@ -106,7 +107,6 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     text-align: center;
-
 
     h2 {
         color: var(--primary-color);
