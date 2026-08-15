@@ -5,6 +5,7 @@ import { getCategoriesByProjectId } from '../models/projects.js';
 import { createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organizations.js';
 import { body, validationResult } from 'express-validator';
+import { addVolunteer, isVolunteer, removeVolunteer } from '../models/users.js';
 
 const NUMBER_OF_UPCOMING_PROJECTS = 100;
 
@@ -39,9 +40,54 @@ const showProjectDetailsPage = async (req, res) => {
     const id = req.params.id;
     const project = await getProjectDetails(id)
     const categories = await getCategoriesByProjectId(id)
+    
+    let volunteer = false;
+
+    if (req.session.user) {
+        volunteer = await isVolunteer(req.session.user.user_id, id);
+    }
     const title = project.title
-    res.render('project', {title, project, categories})
+    res.render('project', {title, project, categories, volunteer})
 }
+
+const processVolunteer = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+
+    try {
+        await addVolunteer(userId, projectId);
+
+        req.flash('success', 'You are now volunteering for this project.');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error adding volunteer:', error);
+
+        req.flash('error', 'There was an error registering as a volunteer.');
+        res.redirect(`/project/${projectId}`);
+    }
+};
+
+const processRemoveVolunteer = async (req, res) => {
+    const projectId = req.params.id;
+    const userId = req.session.user.user_id;
+
+    try {
+        await removeVolunteer(userId, projectId);
+
+        req.flash('success', 'You are no longer volunteering for this project.');
+
+        if (req.headers.referer && req.headers.referer.includes('/dashboard')) {
+            return res.redirect('/dashboard');
+        }
+
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Error removing volunteer:', error);
+
+        req.flash('error', 'There was an error removing you as a volunteer.');
+        res.redirect(`/project/${projectId}`);
+    }
+};
 
 const showNewProjectForm = async (req, res) => {
     const organizations = await getAllOrganizations();
@@ -132,5 +178,7 @@ export {
     processNewProjectForm,
     projectValidation,
     showEditProjectForm,
-    processEditProjectForm
+    processEditProjectForm,
+    processVolunteer,
+    processRemoveVolunteer
 }

@@ -139,3 +139,13 @@ create table users (
 	role_id integer references roles(role_id),
 	created_at timestamp default current_timestamp
 );
+
+-- ========================================
+-- Create project volunteer table
+-- ========================================
+
+CREATE TABLE project_volunteers (
+	user_id int references users(user_id),
+	project_id int references projects(project_id),
+	primary key (user_id, project_id)
+);

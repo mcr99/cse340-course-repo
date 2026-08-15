@@ -1,7 +1,7 @@
 import express from 'express'
 import { showHomePage } from './controllers/index.js'
 import { showOrganizationsPage, showOrganizationDetailsPage } from './controllers/organizations.js'
-import { processEditProjectForm, showEditProjectForm, showProjectsPage } from './controllers/projects.js'
+import { processEditProjectForm, processRemoveVolunteer, processVolunteer, showEditProjectForm, showProjectsPage } from './controllers/projects.js'
 import { categoryValidation, processAssignCategoriesForm, processEditCategoryForm, processNewCategoryForm, showAssignCategoriesForm, showCategoriesPage, showEditCategoryForm, showNewCategoryForm } from './controllers/categories.js'
 import { showTestErrorPage } from './controllers/errors.js'
 import { showProjectDetailsPage } from './controllers/projects.js'
@@ -38,6 +38,7 @@ router.get('/login', showLoginForm)
 router.get('/logout', processLogout)
 router.get('/dashboard', requireLogin, showDashboard)
 router.get('/users', requireRole('admin'), showUsers)
+router.post('/project/:id/volunteer/remove', requireLogin, processRemoveVolunteer)
 // Test route for 500 errors
 router.get('/test-error', showTestErrorPage)
 // Route to handle new organization form submission
@@ -50,6 +51,7 @@ router.post('/new-category', requireRole('admin'), categoryValidation, processNe
 router.post('/edit-category/:id', requireRole('admin'), categoryValidation, processEditCategoryForm)
 router.post('/register', processUserRegistrationForm)
 router.post('/login', processLoginForm)
+router.post('/project/:id/volunteer', requireLogin, processVolunteer)
 
 
 export default router
